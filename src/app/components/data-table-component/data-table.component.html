@@ -1,0 +1,20 @@
+<ng-container *rxLet="vm$; let vm">
+  <div class="data--container mat-elevation-z8">
+    <div class="data--loading-shade" *ngIf="vm.status==='loading'">
+      <mat-spinner *ngIf="vm.status==='loading'"></mat-spinner>
+    </div>
+
+    <div class="data--table-container">
+      <table mat-table [dataSource]="vm.data" class="data--table" matSort (matSortChange)="handleSortData($event)">
+        <ng-container *ngFor="let column of vm.displayedColumns" [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+          <td mat-cell *matCellDef="let row">{{row[column]}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="vm.displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: vm.displayedColumns;"></tr>
+      </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="vm.total" [pageSize]="vm.limit" aria-label="Select page"
+      (page)="handlePageEvent($event)"></mat-paginator>
+  </div>
+</ng-container>
