@@ -1,0 +1,8 @@
+<mat-form-field class="filter-field">
+  <mat-label>{{ column }}</mat-label>
+  <input matInput class="form-field" [placeholder]="column" [formControl]="inputFormControl">
+  <!-- <button *ngIf="filterFormControls[column].value" matSuffix mat-icon-button aria-label="Clear"
+      (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button> -->
+</mat-form-field>

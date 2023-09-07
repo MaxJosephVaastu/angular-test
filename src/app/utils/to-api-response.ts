@@ -7,7 +7,7 @@ export function toApiResponse(): UnaryFunction<
   Observable<Partial<DataState>>
 > {
   return pipe(
-    map((data: DataApiItem[]) => ({ status: 'success' as const, data })),
+    map((data: DataApiItem[]) => ({ status: 'success' as const, data: data.map(({ account, ...rest }) => ({ ...rest, account: Number(account) / 100 })) })),
     startWith({ status: 'loading' as const, data: [] })
   );
 }

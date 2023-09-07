@@ -1,2 +1,2 @@
-export * from './data-state.types'
+export * from './app-state.types'
 export * from './data.types'
