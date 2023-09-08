@@ -1,0 +1,6 @@
+<ng-container *rxLet="sort$; let sort ">
+  <button mat-flat-button class="column-header" (click)="actions.toggleSort()">
+    <mat-label>{{ column }}</mat-label>
+    <mat-icon iconPositionEnd matSuffix [fontIcon]="sort | sortDirectionToIcon"></mat-icon>
+  </button>
+</ng-container>

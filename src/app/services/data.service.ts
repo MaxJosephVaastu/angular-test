@@ -13,12 +13,8 @@ export class DataService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  public getData(
-    sort: string = 'id', order: SortDirection = 'asc', page: number = 1, limit: number = 5
-  ): Observable<Partial<DataState>> {
+  public getData(page: number = 1, limit: number = 10): Observable<Partial<DataState>> {
     const params = {
-      _sort: sort,
-      _order: order,
       _limit: limit,
       _page: page
     };

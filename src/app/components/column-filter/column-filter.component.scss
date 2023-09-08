@@ -2,3 +2,17 @@
   margin-top: 10px;
   width: 100%;
 }
+
+.small-button {
+  scale: 0.7;
+}
+
+::ng-deep {
+  .filter-field .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding: 12px 0;
+    max-width: 180px;
+    width: 100%;
+    min-height: 48px;
+  }
+
+}

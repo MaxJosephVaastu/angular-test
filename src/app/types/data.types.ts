@@ -6,3 +6,6 @@ export interface DataApiItem {
 export interface FilterFormControls {
   [key: string]: FormControl;
 }
+export interface SortFormControls {
+  [key: string]: FormControl;
+}

@@ -19,8 +19,9 @@ import localeRu from '@angular/common/locales/ru';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ColumnFilterComponent, DataTableComponent, HomeComponent } from './components';
-import { NumberAutoPipe } from './pipes';
+import { ColumnFilterComponent, ColumnHeaderComponent, DataTableComponent, HomeComponent } from './components';
+import { NumberAutoPipe, SortDirectionToIconPipe } from './pipes';
+import { RxState } from '@rx-angular/state';
 
 registerLocaleData(localeRu);
 
@@ -28,9 +29,11 @@ registerLocaleData(localeRu);
   declarations: [
     AppComponent,
     ColumnFilterComponent,
+    ColumnHeaderComponent,
     DataTableComponent,
     HomeComponent,
     NumberAutoPipe,
+    SortDirectionToIconPipe,
   ],
   imports: [
     AppRoutingModule,
@@ -50,7 +53,7 @@ registerLocaleData(localeRu);
     RxFor,
     RxLet,
   ],
-  providers: [RxActionFactory, DecimalPipe],
+  providers: [RxState, RxActionFactory, DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

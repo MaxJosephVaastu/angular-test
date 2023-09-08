@@ -5,11 +5,10 @@
     </div>
 
     <div class="data--table-container">
-      <table mat-table [dataSource]="dataState.filteredData" class="data--table" matSort
-        (matSortChange)="handleSortData($event)">
+      <table mat-table [dataSource]="dataState.filteredData" class="data--table">
         <ng-container *ngFor="let column of dataState.displayedColumns" [matColumnDef]="column">
           <th mat-header-cell *matHeaderCellDef>
-            <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> -->
+            <app-column-header [column]="column" [formControl]="sortsFormControls[column]"></app-column-header>
             <app-column-filter [column]="column" [formControl]="filterFormControls[column]"></app-column-filter>
           </th>
           <td mat-cell *matCellDef="let row">{{ column === 'account' ? (row[column] | numberAuto) : row[column]}}</td>
@@ -18,8 +17,9 @@
         <tr mat-row *matRowDef="let row; columns: dataState.displayedColumns;"></tr>
       </table>
     </div>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataState.total" [pageSize]="dataState.limit"
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataState.total" [pageSize]="dataState.limit"
       aria-label="Select page" (page)="handlePageEvent($event)"></mat-paginator>
   </div>
   <div>{{filters$ | async | json}}</div>
+  <div>{{sorts$ | async | json}}</div>
 </ng-container>
