@@ -4,7 +4,8 @@ import { Sort, SortDirection } from '@angular/material/sort';
 import { AppStateService, DestroyService } from '../../services';
 import { Observable, distinctUntilChanged, merge, takeUntil } from 'rxjs';
 import { FormArray, FormControl } from '@angular/forms';
-import { FilterFormControls, SortFormControls } from 'src/app/types';
+import { DataApiItem, FilterFormControls, SortFormControls } from 'src/app/types';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-data-table',
@@ -15,10 +16,9 @@ import { FilterFormControls, SortFormControls } from 'src/app/types';
 })
 
 export class DataTableComponent {
-  public readonly dataState$ = this.appStateService.dataState$;
+  public readonly dataTableState$ = this.appStateService.dataTableState$;
   public readonly filterFormControls: FilterFormControls = {};
   public readonly sortsFormControls: SortFormControls = {};
-  public formControl: FormControl<any> = new FormControl();
   public readonly filters$ = this.appStateService.select('filters');
   public readonly sorts$ = this.appStateService.select('sorts');
 
@@ -26,8 +26,16 @@ export class DataTableComponent {
     this.createFilterForm();
   }
 
-  public handlePageEvent(e: PageEvent): void {
+  public changePage(e: PageEvent): void {
     this.appStateService.actions.setPage(e);
+  }
+
+  public toggleRow(id: number): void {
+    this.appStateService.actions.selectRow(id);
+  }
+
+  public toggleAllRows(selected: boolean): void {
+    this.appStateService.actions.toggleAllRows(selected);
   }
 
   private createFilterForm(): void {

@@ -1,25 +1,43 @@
-<ng-container *rxLet="dataState$; let dataState ">
+<ng-container *rxLet="dataTableState$; let dataTableState ">
   <div class="data--container mat-elevation-z8">
-    <div class="data--loading-shade" *ngIf="dataState.status==='loading'">
-      <mat-spinner *ngIf="dataState.status==='loading'"></mat-spinner>
+    <div class="data--loading-shade" *ngIf="dataTableState.status==='loading'">
+      <mat-spinner *ngIf="dataTableState.status==='loading'"></mat-spinner>
     </div>
 
     <div class="data--table-container">
-      <table mat-table [dataSource]="dataState.filteredData" class="data--table">
-        <ng-container *ngFor="let column of dataState.displayedColumns" [matColumnDef]="column">
+      <table mat-table [dataSource]="dataTableState.filteredData" class="data--table">
+        <ng-container *ngFor="let column of dataTableState.displayedColumns" [matColumnDef]="column">
           <th mat-header-cell *matHeaderCellDef>
-            <app-column-header [column]="column" [formControl]="sortsFormControls[column]"></app-column-header>
-            <app-column-filter [column]="column" [formControl]="filterFormControls[column]"></app-column-filter>
+            <ng-container *ngIf="column === 'select';else columnHeader">
+              <mat-checkbox (change)="$event ? toggleAllRows(!dataTableState.isAllSelected) : null"
+                [checked]="dataTableState.isAllSelected"
+                [indeterminate]="!dataTableState.isAllSelected && dataTableState.isSomeSelected">
+              </mat-checkbox>
+            </ng-container>
+            <ng-template #columnHeader>
+              <app-column-header [column]="column" [formControl]="sortsFormControls[column]"></app-column-header>
+              <app-column-filter [column]="column" [formControl]="filterFormControls[column]"></app-column-filter>
+            </ng-template>
           </th>
-          <td mat-cell *matCellDef="let row">{{ column === 'account' ? (row[column] | numberAuto) : row[column]}}</td>
+          <td mat-cell *matCellDef="let row">
+            <ng-container *ngIf="column === 'select';else columnCell">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? toggleRow(row.data['id']) : null"
+                [checked]="row.selected">
+              </mat-checkbox>
+            </ng-container>
+            <ng-template #columnCell>
+              {{ row.data[column] | numberAuto : column }}
+            </ng-template>
+          </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="dataState.displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: dataState.displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="dataTableState.displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: dataTableState.displayedColumns;"></tr>
       </table>
     </div>
-    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataState.total" [pageSize]="dataState.limit"
-      aria-label="Select page" (page)="handlePageEvent($event)"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" [length]="dataTableState.total"
+      [pageSize]="dataTableState.limit" aria-label="Select page" (page)="changePage($event)"></mat-paginator>
   </div>
-  <div>{{filters$ | async | json}}</div>
+  <!-- <div>{{filters$ | async | json}}</div>
   <div>{{sorts$ | async | json}}</div>
+  <div>{{dataTableState.filteredData | json}}</div> -->
 </ng-container>

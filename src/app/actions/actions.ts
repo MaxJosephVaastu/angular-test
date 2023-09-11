@@ -1,11 +1,16 @@
 import { PageEvent } from '@angular/material/paginator';
 import { Sort, SortDirection } from '@angular/material/sort';
+import { ApiUrl } from '../types';
 
 export interface Actions {
   setPage: PageEvent;
   setSort: Sort;
   setFilters: Filter;
   setSorts: ColumnSort;
+  selectRow: number;
+  toggleAllRows: boolean;
+  sendReport: void;
+  selectApi: ApiUrl;
 }
 
 export interface Filters {

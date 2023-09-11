@@ -5,11 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RxActionFactory } from '@rx-angular/state/actions';
@@ -19,7 +24,14 @@ import localeRu from '@angular/common/locales/ru';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ColumnFilterComponent, ColumnHeaderComponent, DataTableComponent, HomeComponent } from './components';
+import {
+  ColumnFilterComponent,
+  ColumnHeaderComponent,
+  ControlPanelComponent,
+  DataTableComponent,
+  HomeComponent,
+  ReportComponent,
+} from './components';
 import { NumberAutoPipe, SortDirectionToIconPipe } from './pipes';
 import { RxState } from '@rx-angular/state';
 
@@ -30,17 +42,22 @@ registerLocaleData(localeRu);
     AppComponent,
     ColumnFilterComponent,
     ColumnHeaderComponent,
+    ControlPanelComponent,
     DataTableComponent,
     HomeComponent,
     NumberAutoPipe,
+    ReportComponent,
     SortDirectionToIconPipe,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -48,7 +65,9 @@ registerLocaleData(localeRu);
     MatProgressSpinnerModule,
     MatSortModule,
     MatTableModule,
-    FormsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSelectModule,
     ReactiveFormsModule,
     RxFor,
     RxLet,
